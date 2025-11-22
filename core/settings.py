@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_spectacular',
+    'cats',
+    'missions',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# DRF Settings
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# DRF Spectacular settings
+SPECTACULAR_SETTINGS = {
+    'EXTENSIONS': [
+        'api.auth.swagger_schemas.TelegramUserAuthenticationExtension',
+        'api.auth.swagger_schemas.DevelopmentAuthenticationExtension',
+    ],
+    'ENUM_NAME_OVERRIDES': {
+        'SourceTypes': 'twitter.enums.SourceTypes',
+        'StyleLinkTypes': 'twitter.enums.StyleLinkTypes',
+        'TelegramChannelTypes': 'twitter.enums.TelegramChannelTypes'
+    },
+}
